@@ -1,0 +1,65 @@
+/* responsive.css – Breakpoints and mobile navigation styling */
+
+@media (max-width: 900px) {
+  .app-sidebar {
+    position: fixed;
+    top: 0;
+    left: -270px;
+    height: 100vh;
+    box-shadow: 4px 0 16px rgba(0,0,0,0.25);
+  }
+
+  .app-sidebar.sidebar-open {
+    left: 0;
+  }
+
+  .btn-sidebar-toggle {
+    display: inline-flex !important;
+  }
+
+  .workflow-stepper {
+    padding: 0.5rem;
+  }
+
+  .step-item span {
+    font-size: 0.8rem;
+  }
+
+  .step-num {
+    width: 22px;
+    height: 22px;
+    font-size: 0.75rem;
+  }
+}
+
+@media (max-width: 640px) {
+  .content-scroll {
+    padding: 1rem;
+  }
+
+  .card {
+    padding: 1rem;
+  }
+
+  .kmap-table th, .kmap-table td {
+    width: 48px;
+    height: 48px;
+    font-size: 1rem;
+  }
+
+  .kmap-cell-idx {
+    font-size: 0.6rem;
+  }
+
+  .segmented-control {
+    width: 100%;
+    display: flex;
+  }
+
+  .segmented-btn {
+    flex: 1;
+    text-align: center;
+    padding: 0.4rem 0.5rem;
+    font-size: 0.8rem;
+  }
+}

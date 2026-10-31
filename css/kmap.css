@@ -1,0 +1,360 @@
+/* kmap.css – Enhanced Styles for Karnaugh Map grid and visual grouping overlays */
+
+.kmap-section-layout {
+  display: grid;
+  grid-template-columns: 240px 1fr 280px;
+  gap: 1.5rem;
+  align-items: start;
+}
+
+@media (max-width: 1200px) {
+  .kmap-section-layout {
+    grid-template-columns: 1fr;
+  }
+}
+
+.kmap-info-card, .kmap-sidebar-card {
+  background: var(--color-card, #ffffff);
+  border: 1px solid var(--color-border, #e2e8f0);
+  border-radius: var(--radius, 10px);
+  padding: 1.25rem;
+  box-shadow: var(--shadow-sm);
+}
+
+.kmap-main-stage {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+  min-height: 400px;
+  justify-content: center;
+}
+
+.kmap-wrapper {
+  position: relative;
+  display: inline-block;
+  margin: 1.5rem auto;
+}
+
+/* K-Map Table */
+.kmap-table {
+  border-collapse: collapse;
+  position: relative;
+  background: var(--color-card, #ffffff);
+  border-radius: 12px;
+  overflow: visible;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.04);
+}
+
+.kmap-table th, .kmap-table td {
+  border: 1.5px solid var(--color-border, #cbd5e1);
+  width: 76px;
+  height: 76px;
+  text-align: center;
+  vertical-align: middle;
+  position: relative;
+  font-weight: 700;
+  font-size: 1.35rem;
+  user-select: none;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  box-sizing: border-box;
+}
+
+.kmap-table th {
+  background: transparent;
+  color: var(--color-text-muted, #475569);
+  font-size: 1.05rem;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  border-color: transparent !important;
+}
+
+.kmap-table th.header-corner {
+  font-size: 1.15rem;
+  font-weight: 800;
+  color: var(--color-primary, #4f46e5);
+}
+
+.kmap-table th.col-header {
+  border-bottom: 2px solid var(--color-border, #cbd5e1) !important;
+  height: 44px;
+}
+
+.kmap-table th.row-header {
+  border-right: 2px solid var(--color-border, #cbd5e1) !important;
+  width: 44px;
+}
+
+.kmap-cell {
+  cursor: pointer;
+  background: var(--color-card, #ffffff);
+  border-radius: 0;
+}
+
+.kmap-cell:hover {
+  background: rgba(99, 102, 241, 0.05);
+}
+
+.kmap-cell.val-1 {
+  color: #1e40af;
+  font-weight: 800;
+}
+
+.kmap-cell.val-x {
+  color: #d97706;
+  font-weight: 700;
+}
+
+.kmap-cell.val-0 {
+  color: #94a3b8;
+  font-weight: 600;
+}
+
+/* Cell mini minterm indices */
+.kmap-cell-idx {
+  position: absolute;
+  top: 4px;
+  right: 6px;
+  font-size: 0.72rem;
+  color: #94a3b8;
+  font-weight: 500;
+  pointer-events: none;
+}
+
+/* Cell highlighting on hover */
+.kmap-cell.cell-highlighted {
+  box-shadow: inset 0 0 0 3px currentColor;
+  transform: scale(0.96);
+  border-radius: 6px;
+  z-index: 5;
+}
+
+/* Group Overlay Layer inside K-map container */
+.kmap-overlay-layer {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  overflow: visible;
+  transition: opacity 0.25s ease;
+}
+
+.kmap-overlay-layer.hidden {
+  opacity: 0 !important;
+  pointer-events: none !important;
+}
+
+/* Group overlay rects */
+.group-rect {
+  position: absolute;
+  border-radius: 18px;
+  border-style: solid;
+  border-width: 3.5px;
+  pointer-events: auto;
+  cursor: pointer;
+  transition: all 0.22s cubic-bezier(0.4, 0, 0.2, 1);
+  box-sizing: border-box;
+}
+
+.group-rect:hover, .group-rect.highlighted {
+  filter: brightness(1.08);
+  box-shadow: 0 0 16px currentColor;
+  transform: scale(1.015);
+  z-index: 20 !important;
+}
+
+.group-rect.selected {
+  border-width: 4.5px !important;
+  box-shadow: 0 0 20px currentColor !important;
+  z-index: 25 !important;
+}
+
+/* Group floating pills / tags */
+.group-tag {
+  position: absolute;
+  padding: 0.2rem 0.55rem;
+  border-radius: 12px;
+  color: #ffffff;
+  font-size: 0.72rem;
+  font-weight: 700;
+  white-space: nowrap;
+  letter-spacing: 0.3px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+  pointer-events: auto;
+  cursor: pointer;
+  user-select: none;
+  transition: transform 0.2s, filter 0.2s;
+  z-index: 21;
+}
+
+.group-tag:hover {
+  transform: scale(1.1);
+  filter: brightness(1.15);
+}
+
+/* Multi-color Palette: Exactly matching sample reference */
+/* Group 1: Blue */
+.group-color-0 {
+  border-color: #3b82f6;
+  background-color: rgba(59, 130, 246, 0.12);
+  color: #2563eb;
+}
+.group-tag-0 {
+  background: #2563eb;
+}
+
+/* Group 2: Purple */
+.group-color-1 {
+  border-color: #8b5cf6;
+  background-color: rgba(139, 92, 246, 0.12);
+  color: #7c3aed;
+}
+.group-tag-1 {
+  background: #7c3aed;
+}
+
+/* Group 3: Pink / Magenta */
+.group-color-2 {
+  border-color: #ec4899;
+  background-color: rgba(236, 72, 153, 0.12);
+  color: #db2777;
+}
+.group-tag-2 {
+  background: #db2777;
+}
+
+/* Group 4: Emerald Green */
+.group-color-3 {
+  border-color: #10b981;
+  background-color: rgba(16, 185, 129, 0.12);
+  color: #059669;
+}
+.group-tag-3 {
+  background: #059669;
+}
+
+/* Group 5: Amber Orange */
+.group-color-4 {
+  border-color: #f59e0b;
+  background-color: rgba(245, 158, 11, 0.12);
+  color: #d97706;
+}
+.group-tag-4 {
+  background: #d97706;
+}
+
+/* Group 6: Cyan */
+.group-color-5 {
+  border-color: #06b6d4;
+  background-color: rgba(6, 182, 212, 0.12);
+  color: #0891b2;
+}
+.group-tag-5 {
+  background: #0891b2;
+}
+
+/* Group 7: Crimson Red */
+.group-color-6 {
+  border-color: #ef4444;
+  background-color: rgba(239, 68, 68, 0.12);
+  color: #dc2626;
+}
+.group-tag-6 {
+  background: #dc2626;
+}
+
+/* Group 8: Teal */
+.group-color-7 {
+  border-color: #14b8a6;
+  background-color: rgba(20, 184, 166, 0.12);
+  color: #0d9488;
+}
+.group-tag-7 {
+  background: #0d9488;
+}
+
+/* Group Legend Cards & Right-hand List */
+.group-legend-container {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  margin-top: 1rem;
+}
+
+.group-legend-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.85rem 1.25rem;
+  border-radius: 10px;
+  background: var(--color-surface, #f8fafc);
+  border: 1px solid var(--color-border, #e2e8f0);
+  cursor: pointer;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.group-legend-item:hover, .group-legend-item.active {
+  border-color: currentColor;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.06);
+  transform: translateY(-1px);
+}
+
+.group-legend-item.selected {
+  border-width: 2px;
+  border-color: currentColor;
+  box-shadow: 0 0 10px rgba(79, 70, 229, 0.2);
+}
+
+.group-badge {
+  display: inline-block;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  margin-right: 0.65rem;
+}
+
+/* Side summary panel pills */
+.kmap-side-group-card {
+  padding: 0.8rem 1rem;
+  border-radius: 10px;
+  background: var(--color-surface, #f8fafc);
+  border: 1px solid var(--color-border, #e2e8f0);
+  cursor: pointer;
+  transition: all 0.2s;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.6rem;
+}
+
+.kmap-side-group-card:hover, .kmap-side-group-card.active {
+  border-color: currentColor;
+  transform: translateX(3px);
+}
+
+/* Mini Key Legend */
+.legend-key-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  font-size: 0.88rem;
+}
+
+.legend-key-item {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+}
+
+.legend-key-chip {
+  width: 26px;
+  height: 24px;
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 0.85rem;
+}
